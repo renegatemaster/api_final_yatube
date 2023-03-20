@@ -10,11 +10,6 @@ from .serializers import (PostSerializer, GroupSerializer,
 from .permissions import IsAuthorOrReadOnly
 
 
-class ListCreateViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
-                        viewsets.GenericViewSet):
-    pass
-
-
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -45,11 +40,12 @@ class CommentViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user, post=post)
 
 
-class FollowViewSet(ListCreateViewSet):
+class FollowViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
+                    viewsets.GenericViewSet):
     serializer_class = FollowSerializer
     permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (filters.SearchFilter, )
-    search_fields = ('following__username', 'user__username')
+    search_fields = ('following__username',)
 
     def get_queryset(self):
         queryset = Follow.objects.filter(user=self.request.user)
