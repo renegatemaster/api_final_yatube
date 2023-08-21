@@ -8,9 +8,27 @@
 
 Для установки необходимо:
 
- - Клонировать репозитории из GitHub с помощью команды git clone 'SSH-ключ' в терминале;
- - Создать виртуальное окружение, активировать его;
- - Установить все необходимые пакеты командой pip install -r requirements.
+Клонируем репозиторий и переходим в него в командной строке:
+
+```bash
+git clone git@github.com:renegatemaster/api_final_yatube.git
+```
+
+Cоздаём и активируем виртуальное окружение, устанавливаем зависимости:
+
+```bash
+python3.9 -m venv venv && \ 
+    source venv/bin/activate && \
+    python -m pip install --upgrade pip && \
+    pip install -r backend/requirements.txt
+```
+
+Запускаем проект 
+
+```bash
+cd yatube_api/
+python3 manage.py runserver
+```
 
 ## Примеры
 
